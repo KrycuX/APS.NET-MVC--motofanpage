@@ -1,0 +1,153 @@
+﻿@model MotoFanpage.Models.Ogloszenia.Aukcja
+
+@{
+    ViewBag.Title = "Details";
+
+}
+
+
+
+<div class="body1">
+    <h1>@Model.Tytul</h1>
+    <hr />
+
+    <div class="box1">
+
+
+        <img src="~/Obrazki/@Model.Obrazek" width="400px" alt="" />
+    </div>
+    <div class="box2">
+
+        <div style="margin:auto "><H3 style="font-weight:bold">Sprzedawca:  </H3> <h3>  @Html.ActionLink(Model.Profil.Login, "DetailsOther", "Profil", new { id = Model.Profil.ID }, null)</h3></div>
+        <div style="margin:auto"><h3 style="font-weight:bold">Numer Kontaktowy</h3> <h3>@Html.DisplayFor(model => model.Profil.ID)</h3></div>
+           
+    </div>
+
+
+    <div style="clear:both; margin:10px">
+        <hr />
+
+        <div style="text-align:Left"> <H1>Dane Techniczne</H1></div>
+        <table>
+            <tr>
+                <td><h4 style="margin:10px;font-weight:bold;"> Marka:</h4></td>
+                <td><h4 style="margin:10px">@Html.DisplayFor(model => model.Pojazd.Marka)</h4></td>
+                <td> <h4 style="margin:10px;font-weight:bold;"> @Html.DisplayNameFor(model => model.Pojazd.Model):</h4></td>
+                <td> <h4 style="margin:10px">@Html.DisplayFor(model => model.Pojazd.Model)</h4></td>
+            </tr>
+            <tr>
+                <td> <h4 style="margin:10px; font-weight:bold;"> Rok Produkcji:</h4></td>
+                <td> <h4 style="margin:10px">@Html.DisplayFor(model => model.Pojazd.RokProdukcji)</h4></td>
+                <td><h4 style="margin:10px; font-weight:bold;"> Moc:</h4></td>
+                <td><h4 style="margin:10px">@Html.DisplayFor(model => model.Pojazd.MOC)</h4></td>
+            </tr>
+            <tr>
+                <td><h4 style="margin:10px; font-weight:bold;"> Przebieg:</h4></td>
+                <td><h4 style="margin:10px">@Html.DisplayFor(model => model.Pojazd.Przebieg)</h4></td>
+
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <div>
+        <div style="text-align:center"><H1>Opis Sprzedawcy</H1></div>
+        <p>@Model.Opis</p>
+    </div>
+    <hr />
+    <div class="Komy">
+
+        <h2>Komentarze</h2>
+        <div style="overflow:auto;height:150px;">
+            @foreach (var item in Model.LKomAukcja)
+            {<div style="border:2px solid #e3f2fd;border-radius:10px;margin:2px">
+
+                    @if (item.Profil.Email == User.Identity.Name || User.IsInRole("Admin"))
+                    {
+                    @Html.ActionLink("Delete", "Delete", "KomentarzAukcja", new { id = item.ID, idAukcja = item.AukcjaID }, new { @class = "cross" })
+
+                    }
+
+                    <h4>
+
+                        @item.Profil.Login napisal:
+                    </h4>
+                    <p> @item.Date</p> <p>@item.Tresc</p>
+
+                </div>
+            }
+        </div>
+
+    </div>
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("Create", "KomentarzAukcja", new { id = Model.ID }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div>
+
+
+
+
+
+
+
+                <!--  @Html.Label("Treść", htmlAttributes: new { @class = "control-label col-md-2" }) -->
+
+        @Html.TextArea("Content", "", 10, 200, new { htmlAttributes = new { @class = "form-control" } })
+
+
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+        }
+    }
+</div>
+
+
+
+<p>
+
+
+    @Html.ActionLink("Back to List", "Index")
+
+</p>
+<style type="text/css">
+    .box1 {
+        width: auto;
+        float: left;
+        padding: 10px;
+        height: auto;
+        margin: auto;
+    }
+
+    .box2 {
+        display: flex;
+        width: auto;
+        height: auto;
+        padding: 10px;
+        margin: auto;
+    }
+
+    .body1 {
+    }
+
+    .Komy {
+        clear: both;
+    }
+    .cross {
+       
+        background-image: url('../../Obrazki/cross.jpg') ;
+        display: block;
+        width: 15px;
+        height: 10px;
+        text-indent: -9999px; /* hides the link text */
+    }
+</style>

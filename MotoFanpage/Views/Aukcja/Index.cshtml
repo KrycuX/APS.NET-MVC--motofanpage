@@ -1,0 +1,103 @@
+﻿
+@model PagedList.IPagedList<MotoFanpage.Models.Ogloszenia.Aukcja>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Aukcje</h2>
+
+
+@using (Html.BeginForm("Index", "Auctions", FormMethod.Get))
+{
+    <div style="margin:10px;">
+        <p>Find by Tittle: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)</p>
+        <p>Find by Veh:@Html.DropDownList("VehicleTypes", ViewBag.CurrentVehFilter as string)</p>
+
+
+        <input type="submit" value="Search" />
+    </div>
+}
+<table class="table">
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            @Html.ActionLink("Tittle", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter, currentVehFilter = ViewBag.CurrentVehFilter })
+        </th>
+
+        <th>
+            User
+        </th>
+        <th>
+            @Html.ActionLink("Vehicle Brand", "Index", new { sortOrder = ViewBag.VehSortParm, currentFilter = ViewBag.CurrentFilter, currentVehFilter = ViewBag.CurrentVehFilter })
+
+        </th>
+        @if (Request.IsAuthenticated)
+        {
+            <th>Follow</th>
+        }
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+
+                <img src="~/Obrazki/@item.Obrazek" width="100px" alt="" />
+
+
+            </td>
+            <td>
+                @Html.ActionLink(item.Tytul, "Details", new { id = item.ID })
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Profil.Login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pojazd.Marka)
+            </td>
+            
+            @if (Request.IsAuthenticated)
+            {
+                if (ViewBag.Profil.FavAuct.Contains(item))
+                {
+                    <td>
+                        @Html.ActionLink("Unfollow", "UnFollowIndex", new { id = item.ID, currentFilter = ViewBag.CurrentFilter, sortOrder = ViewBag.CurrentSort, currentVehFilter = ViewBag.CurrentVehFilter })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.ActionLink("Follow", "AddFollow", new { id = item.ID, currentFilter = ViewBag.CurrentFilter, sortOrder = ViewBag.CurrentSort, currentVehFilter = ViewBag.CurrentVehFilter })
+                    </td>
+}
+               }
+            else { }
+
+        </tr>
+    }
+
+
+
+</table>
+@if (Request.IsAuthenticated)
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+else
+{ }
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, currentVehFilter = ViewBag.CurrentVehFilter }))
+
+

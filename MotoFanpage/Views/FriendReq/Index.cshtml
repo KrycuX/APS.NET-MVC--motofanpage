@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MotoFanpage.Models.Fanpage.FriendReq>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Zaproszenia</h2>
+<hr />
+
+<table class="table">
+ 
+
+    @foreach (var item in Model)
+    {
+        if (item.IdOdbierajacego == ViewBag.ProfilID && item.Status == 1)
+        {
+            <tr>
+                <td>
+                    @foreach (var item2 in ViewBag.Profil)
+                    {
+                        if (item2.ID == item.IdWysylajacego)
+                        {
+                            <p>@item2.Name @item2.Surname</p>
+                        }
+
+                    }
+                   
+                </td>
+                <td>
+                   Wysyła Ci zaproszenie do grona znajomych
+                </td>
+                
+                <td>
+
+                    @using (Html.BeginForm("Akcept", "FriendReq", FormMethod.Post))
+                    {
+                    @Html.AntiForgeryToken()
+
+                    <input type="number" name="idOdbierajacego" value="@item.IdOdbierajacego" style="visibility:hidden"></input>
+                    <input type="number" name="idWysylajacego" value="@item.IdWysylajacego" style="visibility:hidden"></input>
+                    <input type="submit" value="Akceptuj " class="btn btn-success" />
+
+
+                    }
+                    
+
+                </td>
+            </tr>
+        }
+        
+    }
+
+    </table>

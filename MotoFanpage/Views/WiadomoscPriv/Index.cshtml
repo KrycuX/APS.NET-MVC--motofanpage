@@ -1,0 +1,24 @@
+﻿@model IEnumerable<MotoFanpage.Models.Ogólne.Profil>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Twoje Konwersacje</h2>
+
+
+<table class="table">
+  
+
+@foreach (var item in Model) {
+    <div class="row">
+        <div class="col-md-4">@Html.ActionLink(item.Name + " " + item.Surname, "DetailsOther", new { id = item.ID })</div>
+        <div class="col-md-4">@ViewBag.Autor.Name napisal: @ViewBag.Tresc</div>
+        <div class="col-md-4">@Html.ActionLink("Otwórz konwersacje", "KonwersacjaPW", "WiadomoscPriv", new { id = item.ID }, null)</div>
+
+    </div>
+   
+
+}
+
+</table>

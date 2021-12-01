@@ -1,0 +1,82 @@
+﻿@model MotoFanpage.Models.Ogólne.Pojazd
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pojazd</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Profil.Login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Profil.Login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Marka)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marka)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Przebieg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Przebieg)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RokProdukcji)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RokProdukcji)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MOC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MOC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AuctionId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuctionId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,177 @@
+﻿@model MotoFanpage.Models.Ogólne.Profil
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div class="box">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <img src="~/Obrazki/@Model.Zdjecie" width="200px" alt="" style="border:1px solid gray;border-radius:100px; box-shadow:3px 3px 6px gray" />
+            <div class="row"><H2>@Model.Name @Model.Surname</H2></div>
+        </div>
+        <div class="col-md-4" style="text-align:right">
+            @if (Model.Email == User.Identity.Name)
+            {
+
+                <div class="col-md-8"></div>
+                <div class="col-md-1"> @Html.ActionLink(".", "Create", "Pojazds", null, htmlAttributes: new { @class = "addcar" }) </div>
+                <div class="col-md-1">@Html.ActionLink(".", "UserPojazd", "Pojazds", new { id = Model.ID }, htmlAttributes: new { @class = "car" }) </div>
+                <div class="col-md-1"> @Html.ActionLink(".", "Edit", new { id = Model.ID }, htmlAttributes: new { @class = "sett" })</div>
+            }
+            else
+            {
+                <div class="col-md-10"></div>
+                <!-- tutaj mozna dodac usuwanie ze znajomych-->
+                <div class="col-md-1"></div>
+            }
+        </div>
+
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            @if (Model.Email != User.Identity.Name)
+            {
+                <!--ViewBag.Request i Model.LZnajomi I ViewBag.Profil(zalogowany)-->
+
+                if (ViewBag.Request.Count == 0)
+                {
+                    using (Html.BeginForm("Create", "FriendReq", new { email = User.Identity.Name }, FormMethod.Post))
+                    {
+
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="Zaproś " class="btn btn-default" />
+                        <input type="number" name="idOdbierajacego" value="@Model.ID" style="visibility:hidden">
+
+                    }
+                }
+
+                foreach (var item in ViewBag.Request)
+                {
+                    if (item.IdWysylajacego == ViewBag.Profil.ID && item.IdOdbierajacego == Model.ID && item.Status == 1)
+                    {
+                        <div class="col-md-4">Zaproszenie Wyslane</div>
+                        break;
+
+
+
+
+                    }
+
+                    else if (item.IdOdbierajacego == ViewBag.Profil.ID && item.IdWysylajacego == Model.ID && item.Status == 1)
+                    {
+                        using (Html.BeginForm("Akcept", "FriendReq", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="col-md-4">
+                                <input type="submit" value="Akceptuj Zaproszenie " class="btn btn-success" />
+                                <input type="number" name="idOdbierajacego" value="@item.IdOdbierajacego" style="visibility:hidden"></input>
+                                <input type="number" name="idWysylajacego" value="@item.IdWysylajacego" style="visibility:hidden"></input>
+                            </div>
+                            break;
+                        }
+                    }
+
+
+
+                    else if (!Model.LZnajomi.Any(x=>x.IdZnajomego==ViewBag.Profil.ID))
+                    {
+                        using (Html.BeginForm("Create", "FriendReq", new { email = User.Identity.Name }, FormMethod.Post))
+                        {
+
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Zaproś " class="btn btn-default" />
+                            <input type="number" name="idOdbierajacego" value="@Model.ID" style="visibility:hidden">
+
+                        }
+                    }
+
+                }
+               
+                if (Model.LZnajomi.Any(x=>x.IdZnajomego==ViewBag.Profil.ID))
+                { <div class="col-md-4">
+                        jestescie znajomymi!
+                    </div>
+                    <div class="col-md-4">
+                        @Html.ActionLink("Wiadomosc", "KonwersacjaPW", "WiadomoscPriv", new { id = Model.ID }, null)
+                    </div>
+                }
+
+
+
+
+
+
+
+            }
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h4>Lista znajomych</h4>
+
+            @foreach (var item in Model.LZnajomi)
+            {
+                
+
+                   
+                       
+
+                  
+
+        <p> @Html.ActionLink(item.Imie+" "+item.Nazwisko, "DetailsOther", new { id = item.IdZnajomego })</p>
+               
+
+
+            }
+
+        </div>
+    </div>
+
+</div>
+<p>
+
+
+
+
+</p>
+
+<style>
+    .box {
+        text-align: center;
+    }
+
+    .sett {
+        background: url('../../Obrazki/settings.jpg') no-repeat top right;
+        display: block;
+        width: 25px;
+        height: 25px;
+        margin-left: auto;
+        margin-right: 0;
+        text-indent: -9999px;
+    }
+
+    .car {
+        background: url('../../Obrazki/caricon.png') no-repeat top right;
+        display: block;
+        width: 25px;
+        height: 25px;
+        margin-left: auto;
+        margin-right: 0;
+        text-indent: -9999px;
+    }
+
+    .addcar {
+        background: url('../../Obrazki/addCar.png') no-repeat top right;
+        display: block;
+        width: 25px;
+        height: 25px;
+        margin-left: auto;
+        margin-right: 0;
+        text-indent: -9999px;
+    }
+</style>

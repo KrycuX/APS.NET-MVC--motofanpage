@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MotoFanpage.Models.Fanpage.WiadomoscPriv>
+
+@{
+    ViewBag.Title = "KonwersacjaPW";
+}
+<div class="box">
+    <h2>@ViewBag.ProfilOdb.Name @ViewBag.ProfilOdb.Surname</h2>
+
+
+    <div style="overflow:auto;height:460px;border:1px #e3f2fd solid;border-radius:10px">
+        @foreach (var item in Model)
+        {
+
+        <div class="row" style="margin:10px;">
+            @if (item.Profil.Email == User.Identity.Name)
+            {<div class="col-md-4"></div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4" style="border: 1px #e3f2fd solid; border-radius: 10px;height:auto;word-wrap:break-word;background-color:aquamarine"> <p>@item.Tresc</p></div>
+            }
+            else
+            {
+                <div class="col-md-4" style="border: 1px #e3f2fd solid; border-radius: 10px;height:auto;word-wrap:break-word; ">  <p>@item.Tresc</p></div>
+            }
+
+        </div>
+        }
+    </div>
+
+    
+<div class="row" style="margin-top:10px">
+    <div class="col-md-3"></div>
+    @using (Html.BeginForm("Create", "WiadomoscPriv", new { idOdbierajacego = ViewBag.ProfilOdb.ID }, FormMethod.Post))
+    {
+
+        <div class="col-md-7">
+            <div class="col-md-6" style="width:70%">
+                @Html.AntiForgeryToken()
+                <label>WyslijWiadomosc</label>
+                <input type="text" name="tresc" value="" style="width:100%;border-radius:10px" />
+            </div>
+
+            <div class="col-md-2" style="text-align:right">
+                <input type="submit" value="send" class="btn btn-default" />
+            </div>
+
+        </div>
+    }
+    </div>
+
+
+
+</div>
+<style>
+    .box{
+        text-align:center
+    }
+</style>
