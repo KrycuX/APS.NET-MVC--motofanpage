@@ -45,7 +45,6 @@ namespace MotoFanpage.Models.Ogólne
         public string Zdjecie { get; set; }
 
 
-        public int MyProperty { get; set; }
 
         public virtual List<Znajomy> LZnajomi { get; set; }
         public virtual List<Pojazd> LPojazdy{ get; set;}

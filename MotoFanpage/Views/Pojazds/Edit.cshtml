@@ -65,13 +65,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AuctionId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AuctionId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AuctionId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+   
 
         <div class="form-group">
             @Html.LabelFor(model => model.ProfilID, "ProfilID", htmlAttributes: new { @class = "control-label col-md-2" })

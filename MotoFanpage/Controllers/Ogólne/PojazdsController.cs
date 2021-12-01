@@ -92,7 +92,9 @@ namespace MotoFanpage.Controllers.Ogólne
             {
                 db.Entry(pojazd).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("UserPojazd",new {id=pojazd.ProfilID });
+
             }
             ViewBag.ProfilID = new SelectList(db.BProfil, "ID", "Login", pojazd.ProfilID);
             return View(pojazd);
