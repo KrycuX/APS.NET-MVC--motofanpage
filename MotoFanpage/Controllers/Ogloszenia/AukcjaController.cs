@@ -80,6 +80,7 @@ namespace MotoFanpage.Controllers.Ogloszenia
             items.Add(new SelectListItem { Text = "Wszystko", Value = "" });
             items.Add(new SelectListItem { Text = "Samochód", Value = "Samochód" });
             items.Add(new SelectListItem { Text = "Motocykl", Value = "Motocykl" });
+            items.Add(new SelectListItem { Text = "Skuter", Value = "Skuter" });
 
 
 

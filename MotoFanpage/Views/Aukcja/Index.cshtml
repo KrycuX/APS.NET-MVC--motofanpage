@@ -11,12 +11,14 @@
 
 @using (Html.BeginForm("Index", "Auctions", FormMethod.Get))
 {
-    <div style="margin:10px;">
-        <p>Find by Tittle: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)</p>
-        <p>Find by Veh:@Html.DropDownList("VehicleTypes", ViewBag.CurrentVehFilter as string)</p>
+    <div  class="row" style="margin:10px;">
+        <div class="col-md-4"><p>Find by Tittle: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)</p></div>
+        <div class="col-md-4"><p>Find by Veh:@Html.DropDownList("VehicleTypes", ViewBag.CurrentVehFilter as string)</p></div>
+        
+        
 
 
-        <input type="submit" value="Search" />
+        <input type="submit" value="Szukaj"  class="btn btn-group-justified"/>
     </div>
 }
 <table class="table">
