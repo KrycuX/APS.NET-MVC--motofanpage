@@ -1,4 +1,5 @@
-﻿using MotoFanpage.Models.Fanpage;
+﻿using MotoFanpage.Models;
+using MotoFanpage.Models.Fanpage;
 using MotoFanpage.Models.Ogloszenia;
 using MotoFanpage.Models.Ogólne;
 using System;
@@ -26,6 +27,9 @@ namespace MotoFanpage.DAL
         public DbSet<Pojazd> BPojazd { get; set; }
         public DbSet<Profil> BProfil { get; set; }
         public DbSet<FriendReq> BFriendReq { get; set; }
+        public DbSet<Logi> BLogi { get; set; }
+        public DbSet<Obraz> BObraz { get; set; }
+        
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

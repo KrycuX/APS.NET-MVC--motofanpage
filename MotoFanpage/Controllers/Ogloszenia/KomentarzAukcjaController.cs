@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MotoFanpage.DAL;
+using MotoFanpage.Models;
 using MotoFanpage.Models.Ogloszenia;
 using MotoFanpage.Models.Ogólne;
 
@@ -104,7 +105,7 @@ namespace MotoFanpage.Controllers.Ogloszenia
         }
 
         // GET: KomentarzAukcja/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
@@ -115,7 +116,16 @@ namespace MotoFanpage.Controllers.Ogloszenia
             {
                 return HttpNotFound();
             }
-            
+            Profil profil = db.BProfil.FirstOrDefault(p => p.Email == User.Identity.Name);
+
+            Logi logs = new Logi { 
+                Date = DateTime.Now,
+                IpAdress = GetIp(),
+                IdElement = id,
+                WhatElement = "KomentarzAukcja",
+                Instruction = "Delete",
+                IdUser = profil.ID };
+
             db.BKomentarzAukcja.Remove(komentarzAukcja);
             db.SaveChanges();
             return RedirectToAction("Details", "Aukcja", new { id = komentarzAukcja.AukcjaID });
@@ -125,7 +135,22 @@ namespace MotoFanpage.Controllers.Ogloszenia
            
         }
 
-     
+        protected string GetIp()
+        {
+            HttpContext context = System.Web.HttpContext.Current;
+            string ipAddress = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+            if (!string.IsNullOrEmpty(ipAddress))
+            {
+                string[] addresses = ipAddress.Split(',');
+                if (addresses.Length != 0)
+                {
+                    return addresses[0];
+                }
+            }
+
+            return context.Request.ServerVariables["REMOTE_ADDR"];
+        }
 
         protected override void Dispose(bool disposing)
         {

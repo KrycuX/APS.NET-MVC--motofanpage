@@ -43,7 +43,10 @@
                         <li class="nav-item">@Html.ActionLink("Zaproszenia", "Index", "FriendReq")</li>
                         <li class="nav-item">@Html.ActionLink("Priv", "Index", "WiadomoscPriv")</li>
                     }
-
+                      @if (User.IsInRole("Admin"))
+                      {
+                            <li class="nav-item">@Html.ActionLink("Logi", "Index", "Logi")</li>
+                      }
                 </ul>
 
             </div>

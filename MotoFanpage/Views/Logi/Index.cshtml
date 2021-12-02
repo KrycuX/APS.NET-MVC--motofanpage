@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MotoFanpage.Models.Logi>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IpAdress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Instruction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdElement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WhatElement)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IpAdress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Instruction)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdElement)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WhatElement)
+        </td>
+       
+    </tr>
+}
+
+</table>

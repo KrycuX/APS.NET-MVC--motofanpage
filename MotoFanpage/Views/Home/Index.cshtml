@@ -9,189 +9,200 @@ ViewBag.Title = "Home Page";
             <div class="col-md-4">
                 <h2>POSTY</h2>
             </div>
-            </div>
-    
-        
-    @if (Request.IsAuthenticated)
-    {
+        </div>
 
-        using (Html.BeginForm("Create", "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+        @if (Request.IsAuthenticated)
         {
-            @Html.AntiForgeryToken()
-    <div class="row">
-        <div class="col-lg-4">
 
-        </div>
-        <div class="col-lg-4">
+            using (Html.BeginForm("Create", "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-lg-4">
 
-            <textarea type="text" name="Tresc" value="" style="width:100%;height:100px ;border-radius:10px;overflow-wrap: break-word;resize:none"> </textarea>
-            
-            <div class="col-md-4"  style="margin-top:10px">
-                <input type="submit" value="Utwórz post" class="btn btn-default" />
+                    </div>
+                    <div class="col-lg-4">
 
-            </div>
-            <div class="col-md-7"  style="margin-top:10px">
+                        <textarea type="text" name="Tresc" value="" style="width:100%;height:100px ;border-radius:10px;overflow-wrap: break-word;resize:none"> </textarea>
 
-                <div class="btn btn-default btn-sm float-left"> <input type="file" name="ObrazFile" > </div>
-                
-            </div>
+                        <div class="col-md-4" style="margin-top:10px">
+                            <input type="submit" value="Utwórz post" class="btn btn-default" />
+
+                        </div>
+                        <div class="col-md-7" style="margin-top:10px">
+
+                            <div class="btn btn-default btn-sm float-left"> <input type="file" name="myFiles" multiple> </div>
+
+                        </div>
 
 
-        </div>
+                    </div>
 
 
-    </div>
-            
+                </div>
+
+            }
         }
-    }
-</div>
+    </div>
 
     @foreach (var item in Model)
     {
-<div class="row" style="border-radius:20px;border:1px #e3f2fd solid;box-shadow:3px 3px 6px #e3f2fd;margin:4px">
-    <div class="row">
-        <div class="row">
-            <div class="row" style="margin-top:10px">
+        <div class="row" style="border-radius:20px;border:1px #e3f2fd solid;box-shadow:3px 3px 6px #e3f2fd;margin:4px">
+            <div class="row">
+                <div class="row">
+                    <div class="row" style="margin-top:10px">
 
-                <div class="col-md-4" style="text-align:left;margin-left:4%">
-                    <img src="~/Obrazki/@item.Profil.Zdjecie" width="50px" alt="" style="border-radius:20px" />   @Html.DisplayFor(modelItem => item.Profil.Login)
-                    <p>  @Html.DisplayFor(modelItem => item.Date)</p>
-                </div>
-              
-                <div class="col-md-7" style="text-align:right">
-                    @if (item.Profil.Email == User.Identity.Name)
-                    {
+                        <div class="col-md-4" style="text-align:left;margin-left:4%">
 
-                        @Html.ActionLink("Usun swój post", "Delete", "Post", new { id = item.ID })
-                    }
-                    else if (User.IsInRole("Admin"))
-                    {
-                        @Html.ActionLink("Usun Post użytkownika "+item.Profil.Name, "Delete", "Post", new { id = item.ID })
-                    }
-
-
-
-                </div>
-            </div>
-            <div class="col-md-4"></div>
-
-            <div class="col-md-4" style="word-wrap: break-word;">
-                @Html.DisplayFor(modelItem => item.Tresc)
-            </div>
-        </div>
-
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-4">
-            @if (item.Obraz != null)
-            {
-                <img src="~/Obrazki/@item.Obraz" width="100px" alt="" />
-            }
-        </div>
-    </div>
-
-
-
-
-
-
-    @if (Request.IsAuthenticated)
-    {<div class="col-md-3">
-
-            @if (ViewBag.Profil.Likes.Contains(item))
-            {
-                <div class="col-md-2"> @Html.ActionLink("UnLike", "UnLike", new { id = item.ID }, new { @class = "Like" })</div>
-                <div class="col-md-3" style="text-align:right;margin-top:6px"> @Html.DisplayFor(modelItem => item.Likes.Count)</div>
-
-            }
-            else
-            {
-
-                <div class="col-md-2">  @Html.ActionLink("Like", "DajLike", new { id = item.ID }, new { @class = "unLike" })</div>
-                <div class="col-md-3" style="text-align:right;margin-top:6px">  @Html.DisplayFor(modelItem => item.Likes.Count)</div>
-
-
-
-            }
-        </div>
-
-
-        using (Html.BeginForm("Create", "KomentarzFanpages", new { id = item.ID }, FormMethod.Post))
-        {
-
-            <div class="col-md-7">
-                <div class="col-md-6" style="width:70%">
-                    @Html.AntiForgeryToken()
-                    <label>Dodaj Komentarz</label>
-                    <textarea type="text" name="Content" value="" style="width:100%;border-radius:10px;overflow-wrap:break-word;resize:none" ></textarea>
-                </div>
-
-                <div class="col-md-2" style="text-align:right">
-                    <input type="submit" value="send" class="btn btn-default" />
-                </div>
-
-            </div>
-
-
-
-        }
-
-
-
-    }
-    else { }
-
-    <div class="row" >
-       
-
-        <div class="col-md-11" style="overflow:auto;height:100px;margin-left:auto;margin-right:auto">
-            
-            @foreach (var item3 in item.LKomPostProf)
-            {
-
-
-                <div style="border:1px solid #e3f2fd;border-radius:10px;margin:2px">
-                    <div class="row">
-                    
-                      
-                        <div class="col-md-2"><img src="~/Obrazki/@item3.Profil.Zdjecie" width="30px" alt="" style="border-radius:10px" /></div>
-                        <div class="col-md-2" style="text-align:left">@item3.Profil.Login:</div>
-                        <div class="col-md-4" style="text-align:left;word-wrap:break-word;">
-                            @item3.Tresc     @if (item3.Profil.Email == User.Identity.Name || User.IsInRole("Admin"))
-                                                {
-                                                    @Html.ActionLink(".", "Delete", "KomentarzFanpages", new { id = item.ID }, new { @class = "Cross" })
-                                                }
+                            <img src="~/Obrazki/@item.Profil.Zdjecie" width="50px" alt="" style="border-radius:20px" />   @Html.DisplayFor(modelItem => item.Profil.Login)
+                            <p>  @Html.DisplayFor(modelItem => item.Date)</p>
                         </div>
 
+                        <div class="col-md-7" style="text-align:right">
+                            @if (item.Profil.Email == User.Identity.Name)
+                            {
+
+                                @Html.ActionLink("Usun swój post", "Delete", "Post", new { id = item.ID }, null)
+                            }
+                            else if (User.IsInRole("Admin"))
+                            {
+                                @Html.ActionLink("Usun Post użytkownika " + item.Profil.Name, "Delete", "Post", new { id = item.ID }, null)
+                            }
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
+
+                    <div class="col-md-4" style="word-wrap: break-word;">
+                        @Html.DisplayFor(modelItem => item.Tresc)
                     </div>
                 </div>
 
+                
+                <div class="col-md-14" style="text-align:center">
+                    @if (item.Obraz != null)
+                    {
+                        foreach (var item2 in item.Obraz)
+                        {
+                    <a href="~/Obrazki/@item2.Name" target="_blank"> <img class="myImage" src="~/Obrazki/@item2.Name"  style="min-width:100px; max-width:400px; margin:5px" alt="" /></a>
+
+
+                        }
+                    }
+                </div>
+            </div>
+
+
+
+
+
+
+            @if (Request.IsAuthenticated)
+            {<div class="col-md-3">
+
+                    @if (ViewBag.Profil.Likes.Contains(item))
+                    {
+                        <div class="col-md-2"> @Html.ActionLink("UnLike", "UnLike", new { id = item.ID }, new { @class = "Like" })</div>
+                        <div class="col-md-3" style="text-align:right;margin-top:6px"> @Html.DisplayFor(modelItem => item.Likes.Count)</div>
+
+                    }
+                    else
+                    {
+
+                        <div class="col-md-2">  @Html.ActionLink("Like", "DajLike", new { id = item.ID }, new { @class = "unLike" })</div>
+                        <div class="col-md-3" style="text-align:right;margin-top:6px">  @Html.DisplayFor(modelItem => item.Likes.Count)</div>
+
+
+
+                    }
+                </div>
+
+
+                using (Html.BeginForm("Create", "KomentarzFanpages", new { id = item.ID }, FormMethod.Post))
+                {
+
+                    <div class="col-md-7">
+                        <div class="col-md-6" style="width:70%">
+                            @Html.AntiForgeryToken()
+                            <label>Dodaj Komentarz</label>
+                            <textarea type="text" name="Content" value="" style="width:100%;border-radius:10px;overflow-wrap:break-word;resize:none"></textarea>
+                        </div>
+
+                        <div class="col-md-2" style="text-align:right">
+                            <input type="submit" value="send" class="btn btn-default" />
+                        </div>
+
+                    </div>
+
+
+
+                }
+
+
 
             }
-            <!-- Lista komentarzy here-->
-        </div>
-    </div>
+            else { }
 
-</div><br />
+            <div class="row">
 
 
-}
+                <div class="col-md-11" style="overflow:auto;height:100px;margin-left:auto;margin-right:auto">
+
+                    @foreach (var item3 in item.LKomPostProf)
+                    {
+
+
+                        <div style="border:1px solid #e3f2fd;border-radius:10px;margin:2px">
+                            <div class="row">
+
+
+                                <div class="col-md-2"><img src="~/Obrazki/@item3.Profil.Zdjecie" width="30px" alt="" style="border-radius:10px" /></div>
+                                <div class="col-md-2" style="text-align:left">@item3.Profil.Login:</div>
+                                <div class="col-md-4" style="text-align:left;word-wrap:break-word;">
+                                    @item3.Tresc     @if (item3.Profil.Email == User.Identity.Name || User.IsInRole("Admin"))
+                                    {
+                                        @Html.ActionLink(".", "Delete", "KomentarzFanpages", new { id = item.ID }, new { @class = "Cross" })
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    }
+                    <!-- Lista komentarzy here-->
+                </div>
+            </div>
+
+        </div><br />
+
+
+    }
 
 </div>
+
+
+
+
+
 <style type="text/css">
-   
-  .box{
-      text-align:center;
-  }
-    .row{
-        margin-bottom:10px;
+
+    .box {
+        text-align: center;
+    }
+
+    .row {
+        margin-bottom: 10px;
     }
 
     .unLike {
         background: url('../../Obrazki/unLike.png') no-repeat top left;
         display: block;
-        margin-right:0;
-        margin-left:auto;
+        margin-right: 0;
+        margin-left: auto;
         width: 45px;
         height: 45px;
         text-indent: -9999px;
@@ -206,6 +217,7 @@ ViewBag.Title = "Home Page";
         height: 45px;
         text-indent: -9999px;
     }
+
     .Cross {
         background: url('../../Obrazki/cross.jpg') no-repeat top right;
         display: block;
@@ -215,5 +227,4 @@ ViewBag.Title = "Home Page";
         height: 18px;
         text-indent: -9999px;
     }
-  
 </style>
