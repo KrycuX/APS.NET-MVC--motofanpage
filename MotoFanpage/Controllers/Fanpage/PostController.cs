@@ -139,6 +139,8 @@ namespace MotoFanpage.Controllers.Fanpage
 
             Profil profil = db.BProfil.FirstOrDefault(p=>p.Email==User.Identity.Name);
 
+            db.BObraz.RemoveRange(post.Obraz);
+
             Logi logs = new Logi {Date=DateTime.Now,IpAdress=GetIp(),IdElement=id,WhatElement="Post",Instruction="Delete",IdUser=profil.ID};
 
 

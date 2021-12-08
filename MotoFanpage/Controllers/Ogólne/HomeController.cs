@@ -12,18 +12,23 @@ namespace MotoFanpage.Controllers.Ogólne
     public class HomeController : Controller
     {
         FanpageContext db = new FanpageContext();
-        public ActionResult Index()
+        public ActionResult Index(int? error)
         {
             Profil profile = db.BProfil.FirstOrDefault(p => p.Email == User.Identity.Name);
             List<Post> post = db.BPost.OrderByDescending(p=>p.Date).ToList();
          
           
                 ViewBag.Profil = profile;
-
-            
+            if(error==1)
+            { 
+                 ViewBag.Error = "Nie można dodać pustego komentarza!";
+            }
 
             return View(post);
         }
+
+        
+
         public ActionResult DajLike(int? id)
         {
             Post post = db.BPost.Find(id);

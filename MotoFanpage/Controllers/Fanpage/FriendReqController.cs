@@ -70,8 +70,8 @@ namespace MotoFanpage.Controllers.Fanpage
 
 
                 db.BProfil.FirstOrDefault(p => p.ID == idWysylajacego).LZnajomi.Add(znajomy);
-           
-    
+
+            db.BFriendReq.FirstOrDefault(p => p.IdOdbierajacego == idOdbierajacego && p.IdWysylajacego == idWysylajacego).Status=2;
 
             db.SaveChanges();
 

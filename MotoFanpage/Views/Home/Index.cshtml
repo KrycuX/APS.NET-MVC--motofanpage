@@ -7,7 +7,9 @@ ViewBag.Title = "Home Page";
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
+                <div style="color:red">@ViewBag.Error</div>
                 <h2>POSTY</h2>
+
             </div>
         </div>
 
@@ -129,10 +131,12 @@ ViewBag.Title = "Home Page";
                             @Html.AntiForgeryToken()
                             <label>Dodaj Komentarz</label>
                             <textarea type="text" name="Content" value="" style="width:100%;border-radius:10px;overflow-wrap:break-word;resize:none"></textarea>
+                            
                         </div>
 
                         <div class="col-md-2" style="text-align:right">
-                            <input type="submit" value="send" class="btn btn-default" />
+                            <input type="submit" value="Wyślij Komentarz" class="btn btn-default" />
+                            
                         </div>
 
                     </div>
@@ -164,7 +168,7 @@ ViewBag.Title = "Home Page";
                                 <div class="col-md-4" style="text-align:left;word-wrap:break-word;">
                                     @item3.Tresc     @if (item3.Profil.Email == User.Identity.Name || User.IsInRole("Admin"))
                                     {
-                                        @Html.ActionLink(".", "Delete", "KomentarzFanpages", new { id = item.ID }, new { @class = "Cross" })
+                                        @Html.ActionLink(".", "Delete", "KomentarzFanpages", new { id = item3.ID }, new { @class = "Cross" })
                                     }
                                 </div>
 

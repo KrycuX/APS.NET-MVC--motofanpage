@@ -54,6 +54,11 @@ namespace MotoFanpage.Controllers.Fanpage
         [ValidateAntiForgeryToken]
         public ActionResult Create(int id, string content)
         {
+           if(content=="")
+            {
+                return RedirectToAction("Index","Home",new {error=1 });
+            }
+
             Profil profile = db.BProfil.Single(p => p.Email == User.Identity.Name);
             KomentarzFanpage comments = new KomentarzFanpage();
             comments.PostId = id;

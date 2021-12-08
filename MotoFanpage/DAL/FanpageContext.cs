@@ -46,7 +46,7 @@ namespace MotoFanpage.DAL
          
 
             modelBuilder.Entity<WiadomoscPriv>().HasRequired<Profil>(k => k.Profil).WithMany(p => p.LMsg).HasForeignKey(k => k.ProfilID).WillCascadeOnDelete(false);
-
+          
           //  modelBuilder.Entity<Znajomy>().HasRequired<Profil>(k => k.Profil).WithMany(p => p.LZnajomi).HasForeignKey(k => k.IdZnajomego).WillCascadeOnDelete(false);
 
 
