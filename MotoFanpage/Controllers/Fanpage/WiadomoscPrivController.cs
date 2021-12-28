@@ -64,7 +64,8 @@ namespace MotoFanpage.Controllers.Fanpage
             Profil profilWys = db.BProfil.FirstOrDefault(p => p.Email==User.Identity.Name);
 
 
-            List<WiadomoscPriv> lista = db.BWiadomoscPriv.Where(p => p.IdOdbierajacego == profilOdb.ID && p.ProfilID == profilWys.ID || p.IdOdbierajacego==profilWys.ID && p.ProfilID==profilOdb.ID).ToList();
+            List<WiadomoscPriv> lista = db.BWiadomoscPriv.Where(p => p.IdOdbierajacego == profilOdb.ID && p.ProfilID == profilWys.ID 
+            || p.IdOdbierajacego==profilWys.ID && p.ProfilID==profilOdb.ID).ToList();
 
             ViewBag.ProfilOdb = profilOdb;
             ViewBag.ProfilWys = profilWys;

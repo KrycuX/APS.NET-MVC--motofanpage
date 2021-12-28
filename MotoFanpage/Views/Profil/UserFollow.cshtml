@@ -1,0 +1,55 @@
+﻿@model IEnumerable<MotoFanpage.Models.Ogloszenia.Aukcja>
+
+<h2>UserFollow</h2>
+
+<table class="table">
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tytul)
+        </th>
+
+        <th>
+            User
+        </th>
+        <th>
+            Vehicle Brand
+        </th>
+
+
+
+        <th></th>
+    </tr>
+    @if (Model == null)
+    {
+        <h1>Brak Ulubionych</h1>
+ }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/Obrazki/@item.Obrazek" width="100px" alt="" />
+                </td>
+                <td>
+                    @Html.ActionLink(item.Tytul, "Details", "Aukcja", new { id = item.ID }, null)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Profil.Login)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pojazd.Marka)
+                </td>
+
+               
+
+
+            </tr>
+        }
+    }
+
+</table>

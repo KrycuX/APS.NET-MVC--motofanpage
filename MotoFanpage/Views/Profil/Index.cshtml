@@ -8,7 +8,18 @@
 
 
 <div style="text-align:center">
+    @using (Html.BeginForm("Index", "Profil", FormMethod.Get))
+    {
+<div class="row" style="margin:10px;text-align:center">
+ 
+    <div class="col-md-4"><p>@Html.TextBox("SearchString", ViewBag.CurrentFilter as string)</p></div>
+   
 
+
+
+
+    <input type="submit" value="Szukaj" class="btn btn-group-justified" />
+</div>}
     @foreach (var item in Model)
     {
         <div class="row">

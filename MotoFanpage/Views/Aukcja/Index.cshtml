@@ -9,11 +9,11 @@
 <h2>Aukcje</h2>
 
 
-@using (Html.BeginForm("Index", "Auctions", FormMethod.Get))
+@using (Html.BeginForm("Index", "Aukcja", FormMethod.Get))
 {
     <div  class="row" style="margin:10px;">
-        <div class="col-md-4"><p>Find by Tittle: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)</p></div>
-        <div class="col-md-4"><p>Find by Veh:@Html.DropDownList("VehicleTypes", ViewBag.CurrentVehFilter as string)</p></div>
+        <div class="col-md-4"><p>Szukaj po Tytule: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)</p></div>
+        <div class="col-md-4"><p>Szukaj po Typie pojazdu:@Html.DropDownList("VehicleTypes", ViewBag.CurrentVehFilter as string)</p></div>
         
         
 
@@ -27,19 +27,19 @@
 
         </th>
         <th>
-            @Html.ActionLink("Tittle", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter, currentVehFilter = ViewBag.CurrentVehFilter })
+            @Html.ActionLink("Tytuł", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter, currentVehFilter = ViewBag.CurrentVehFilter })
         </th>
 
         <th>
-            User
+            Użytkownik
         </th>
         <th>
-            @Html.ActionLink("Vehicle Brand", "Index", new { sortOrder = ViewBag.VehSortParm, currentFilter = ViewBag.CurrentFilter, currentVehFilter = ViewBag.CurrentVehFilter })
+            @Html.ActionLink("Marka", "Index", new { sortOrder = ViewBag.VehSortParm, currentFilter = ViewBag.CurrentFilter, currentVehFilter = ViewBag.CurrentVehFilter })
 
         </th>
         @if (Request.IsAuthenticated)
         {
-            <th>Follow</th>
+            <th>Polubienia</th>
         }
 
         <th></th>
@@ -70,13 +70,13 @@
                 if (ViewBag.Profil.FavAuct.Contains(item))
                 {
                     <td>
-                        @Html.ActionLink("Unfollow", "UnFollowIndex", new { id = item.ID, currentFilter = ViewBag.CurrentFilter, sortOrder = ViewBag.CurrentSort, currentVehFilter = ViewBag.CurrentVehFilter })
+                        @Html.ActionLink("Usun z Ulubionych", "UnFollowIndex", new { id = item.ID, currentFilter = ViewBag.CurrentFilter, sortOrder = ViewBag.CurrentSort, currentVehFilter = ViewBag.CurrentVehFilter })
                     </td>
                 }
                 else
                 {
                     <td>
-                        @Html.ActionLink("Follow", "AddFollow", new { id = item.ID, currentFilter = ViewBag.CurrentFilter, sortOrder = ViewBag.CurrentSort, currentVehFilter = ViewBag.CurrentVehFilter })
+                        @Html.ActionLink("Polub", "AddFollow", new { id = item.ID, currentFilter = ViewBag.CurrentFilter, sortOrder = ViewBag.CurrentSort, currentVehFilter = ViewBag.CurrentVehFilter })
                     </td>
 }
                }
@@ -91,7 +91,7 @@
 @if (Request.IsAuthenticated)
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Stwórz Ogłoszenie", "Create")
     </p>
 }
 else

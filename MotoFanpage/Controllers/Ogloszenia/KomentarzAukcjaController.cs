@@ -17,36 +17,10 @@ namespace MotoFanpage.Controllers.Ogloszenia
     {
         private FanpageContext db = new FanpageContext();
 
-        // GET: KomentarzAukcja
-        public ActionResult Index()
-        {
-            var bKomentarzAukcja = db.BKomentarzAukcja.Include(k => k.Aukcja).Include(k => k.Profil);
-            return View(bKomentarzAukcja.ToList());
-        }
+  
+      
 
-        // GET: KomentarzAukcja/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            KomentarzAukcja komentarzAukcja = db.BKomentarzAukcja.Find(id);
-            if (komentarzAukcja == null)
-            {
-                return HttpNotFound();
-            }
-            return View(komentarzAukcja);
-        }
-
-        // GET: KomentarzAukcja/Create
-        public ActionResult Create(int? id)
-        {
-            Profil profil = db.BProfil.FirstOrDefault(p => p.Email == User.Identity.Name);
-            ViewBag.AukcjaID = id;
-            ViewBag.Profil = profil;
-            return View();
-        }
+       
 
         // POST: KomentarzAukcja/Create
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
@@ -69,23 +43,8 @@ namespace MotoFanpage.Controllers.Ogloszenia
             return RedirectToAction("Details", "Aukcja", new { id = comments.AukcjaID });
         }
 
-        // GET: KomentarzAukcja/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            KomentarzAukcja komentarzAukcja = db.BKomentarzAukcja.Find(id);
-            if (komentarzAukcja == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.AukcjaID = new SelectList(db.BAukcja, "ID", "Tytul", komentarzAukcja.AukcjaID);
-            ViewBag.ProfilId = new SelectList(db.BProfil, "ID", "Login", komentarzAukcja.ProfilId);
-            return View(komentarzAukcja);
-        }
-
+        
+        
         // POST: KomentarzAukcja/Edit/5
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.

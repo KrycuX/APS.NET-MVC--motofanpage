@@ -21,10 +21,37 @@ namespace MotoFanpage.Controllers.Ogólne
         
 
         // GET: Profil
-        public ActionResult Index()
+        public ActionResult Index(string currentFilter, string searchString)
         {
-            return View(db.BProfil.ToList());
+            var profil = db.BProfil.ToList();
+            if (searchString != null)
+            {
+                 profil = db.BProfil.ToList();
+
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+           
+           
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                profil = profil.Where(a => a.Name.Contains(searchString) || a.Surname.Contains(searchString) ||(a.Name+" "+a.Surname).Contains(searchString) ).ToList();
+            }
+
+            return View(profil);
         }
+
+        public ActionResult UserFollow()
+        {
+            Profil profile = db.BProfil.Single(p => p.Email == User.Identity.Name);
+
+            return View(db.BProfil.Single(p => p.Email == User.Identity.Name).FavAuct);
+        }
+
 
         // GET: Profil/Details/5
         public ActionResult Details()

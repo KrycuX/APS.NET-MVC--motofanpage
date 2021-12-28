@@ -17,34 +17,9 @@ namespace MotoFanpage.Controllers.Fanpage
     {
         private FanpageContext db = new FanpageContext();
 
-        // GET: Post
-        public ActionResult Index()
-        {
-            var bPost = db.BPost.Include(p => p.Profil);
-            return View(bPost.ToList());
-        }
-
-        // GET: Post/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = db.BPost.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
-        }
-
-        // GET: Post/Create
-        public ActionResult Create()
-        {
-            ViewBag.ProfilID = new SelectList(db.BProfil, "ID", "Login");
-            return View();
-        }
+      
+       
+    
 
         // POST: Post/Create
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
@@ -55,18 +30,11 @@ namespace MotoFanpage.Controllers.Fanpage
         {
             Profil profile = db.BProfil.Single(p => p.Email == User.Identity.Name);
             Post posty = new Post();
-          
             
             posty.ProfilID = profile.ID;
             posty.Date = DateTime.Now;
             posty.Tresc = tresc;
-
             posty.Obraz = new List<Obraz>();
-
-
-
-
-
 
                 foreach (var file in myFiles)
                 {
@@ -80,48 +48,13 @@ namespace MotoFanpage.Controllers.Fanpage
                     }
 
                 }
-
-           
-
             db.BPost.Add(posty);
             db.SaveChanges();
-
             return RedirectToAction("Index", "Home");
         }
 
         // GET: Post/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = db.BPost.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ProfilID = new SelectList(db.BProfil, "ID", "Login", post.ProfilID);
-            return View(post);
-        }
-
-        // POST: Post/Edit/5
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ProfilID,Date,Tresc")] Post post)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ProfilID = new SelectList(db.BProfil, "ID", "Login", post.ProfilID);
-            return View(post);
-        }
-
+       
         // GET: Post/Delete/5
         public ActionResult Delete(int id)
         {
@@ -141,7 +74,7 @@ namespace MotoFanpage.Controllers.Fanpage
 
             db.BObraz.RemoveRange(post.Obraz);
 
-            Logi logs = new Logi {Date=DateTime.Now,IpAdress=GetIp(),IdElement=id,WhatElement="Post",Instruction="Delete",IdUser=profil.ID};
+            Logi logs = new Logi {Date=DateTime.Now,IpAdress=GetIp(),IdElement=id,WhatElement="Post",Instruction="Usun",IdUser=profil.ID};
 
 
             db.BPost.Remove(post);
@@ -153,16 +86,6 @@ namespace MotoFanpage.Controllers.Fanpage
             return RedirectToAction("Index", "Home");
         }
 
-        // POST: Post/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Post post = db.BPost.Find(id);
-            db.BPost.Remove(post);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
         protected string GetIp()
         {
             HttpContext context = System.Web.HttpContext.Current;

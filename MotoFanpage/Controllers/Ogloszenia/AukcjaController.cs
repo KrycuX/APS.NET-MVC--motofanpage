@@ -99,7 +99,45 @@ namespace MotoFanpage.Controllers.Ogloszenia
 
             return View(auctions.ToPagedList(pageNumber, pageSize));
         }
-    
+        public ActionResult UnFollowIndex(int? id, string currentFilter, string sortOrder)
+        {
+            Aukcja auction = db.BAukcja.Find(id);
+            db.BProfil.Single(p => p.Email == User.Identity.Name).FavAuct.Remove(auction);
+            db.SaveChanges();
+            return RedirectToAction("Index", new { currentFilter = currentFilter, sortOrder = sortOrder });
+        }
+        public ActionResult UnFollow(int? id)
+        {
+            Aukcja auction = db.BAukcja.Find(id);
+            db.BProfil.Single(p => p.Email == User.Identity.Name).FavAuct.Remove(auction);
+            db.SaveChanges();
+            return RedirectToAction("UserFollow", "Profiles");
+        }
+
+        public ActionResult AddFollow(int? id, string currentFilter, string sortOrder, string currentVehFilter)
+        {
+
+            Aukcja auction = db.BAukcja.Find(id);
+
+            if (db.BProfil.Single(p => p.Email == User.Identity.Name).FavAuct == null)
+            {
+                var lista = new List<Aukcja>();
+                lista.Add(auction);
+                db.BProfil.Single(p => p.Email == User.Identity.Name).FavAuct = lista;
+                db.SaveChanges();
+                return RedirectToAction("Index", new { currentFilter = currentFilter, sortOrder = sortOrder, currentVehFilter = currentVehFilter });
+            }
+            else
+            {
+                db.BProfil.Single(p => p.Email == User.Identity.Name).FavAuct.Add(auction);
+                db.SaveChanges();
+
+
+                return RedirectToAction("Index", new { currentFilter = currentFilter, sortOrder = sortOrder, currentVehFilter = currentVehFilter });
+            }
+
+
+        }
         // GET: Aukcja/Details/5
         public ActionResult Details(int? id)
         {

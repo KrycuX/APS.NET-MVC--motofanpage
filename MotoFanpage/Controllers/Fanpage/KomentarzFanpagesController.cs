@@ -121,7 +121,7 @@ namespace MotoFanpage.Controllers.Fanpage
             }
             Profil profil = db.BProfil.FirstOrDefault(p => p.Email == User.Identity.Name);
 
-            Logi logs = new Logi { Date = DateTime.Now, IpAdress = GetIp(), IdElement = id, WhatElement = "KomentarzPost", Instruction = "Delete", IdUser = profil.ID };
+            Logi logs = new Logi { Date = DateTime.Now, IpAdress = GetIp(), IdElement = id, WhatElement = "KomentarzPost", Instruction = "Usun", IdUser = profil.ID };
 
             db.BKomentarzFanpage.Remove(komentarzFanpage);
             db.BLogi.Add(logs);

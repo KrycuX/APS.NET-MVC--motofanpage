@@ -5,7 +5,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Tworzenie</h2>
 
 
 @using (Html.BeginForm("Create", "Aukcja", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -13,9 +13,8 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>Auction</h4>
+    <h4>Aukcja</h4>
     <hr />
-    <p>Jesli nie masz pojazdu najpierw utwórz go tutaj ->  @Html.ActionLink("Create Vehicle", "Create", "Vehicles") </p>
     <div class="form-group">
         @Html.LabelFor(model => model.Obrazek, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class=" =" col-md-10>
@@ -64,7 +63,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Stwórz" class="btn btn-default" />
         </div>
     </div>
 </div>

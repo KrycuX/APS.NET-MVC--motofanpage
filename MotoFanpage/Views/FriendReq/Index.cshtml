@@ -30,20 +30,32 @@
                    Wysyła Ci zaproszenie do grona znajomych
                 </td>
                 
-                <td>
+                <td style="text-align:center">
 
                     @using (Html.BeginForm("Akcept", "FriendReq", FormMethod.Post))
                     {
                     @Html.AntiForgeryToken()
-
+                    <input type="submit" value="Akceptuj Zaproszenie " class="btn btn-success"  />
                     <input type="number" name="idOdbierajacego" value="@item.IdOdbierajacego" style="visibility:hidden"></input>
                     <input type="number" name="idWysylajacego" value="@item.IdWysylajacego" style="visibility:hidden"></input>
-                    <input type="submit" value="Akceptuj " class="btn btn-success" />
+                 
 
 
                     }
-                    
+                     
 
+                </td>
+                <td>
+                  @using (Html.BeginForm("Odrzuc", "FriendReq", FormMethod.Post))
+                    {
+                    @Html.AntiForgeryToken()
+                   
+                         <input type="submit" value="Odrzuc Zaproszenie  " class="btn btn-danger" />
+                        <input type="number" name="idOdbierajacego" value="@item.IdOdbierajacego" style="visibility:hidden"></input>
+                        <input type="number" name="idWysylajacego" value="@item.IdWysylajacego" style="visibility:hidden"></input>
+                   
+
+                    } 
                 </td>
             </tr>
         }

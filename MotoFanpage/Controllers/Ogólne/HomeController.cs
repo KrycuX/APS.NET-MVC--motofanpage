@@ -49,8 +49,6 @@ namespace MotoFanpage.Controllers.Ogólne
                 db.BPost.Find(id).Likes.Add(listLikesPost);
                 db.BProfil.Single(p => p.Email == User.Identity.Name).Likes.Add(post);
                 db.SaveChanges();
-
-
                 return RedirectToAction("Index");
             }
 

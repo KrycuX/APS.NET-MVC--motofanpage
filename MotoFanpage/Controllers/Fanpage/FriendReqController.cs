@@ -64,20 +64,34 @@ namespace MotoFanpage.Controllers.Fanpage
 
 
 
-
-
                db.BProfil.FirstOrDefault(p => p.ID == idOdbierajacego).LZnajomi.Add(znajomy2);
-
-
-                db.BProfil.FirstOrDefault(p => p.ID == idWysylajacego).LZnajomi.Add(znajomy);
+               db.BProfil.FirstOrDefault(p => p.ID == idWysylajacego).LZnajomi.Add(znajomy);
 
             db.BFriendReq.FirstOrDefault(p => p.IdOdbierajacego == idOdbierajacego && p.IdWysylajacego == idWysylajacego).Status=2;
-
             db.SaveChanges();
 
             return RedirectToAction("Index","Home");
         }
-        
+        [HttpPost]
+
+        public ActionResult Odrzuc(int idOdbierajacego, int idWysylajacego)
+        {
+            db.BFriendReq.FirstOrDefault(p => p.IdOdbierajacego == idOdbierajacego && p.IdWysylajacego == idWysylajacego).Status = 2;
+
+          
+
+
+
+      
+
+           var request=db.BFriendReq.FirstOrDefault(p => p.IdOdbierajacego == idOdbierajacego && p.IdWysylajacego == idWysylajacego);
+            db.BFriendReq.Remove(request);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
 
         // GET: FriendReq/Create
         public ActionResult Create()
@@ -98,8 +112,7 @@ namespace MotoFanpage.Controllers.Fanpage
 
            
 
-            if (ModelState.IsValid)
-            {
+          
                 request.IdWysylajacego = profil.ID;
                 request.IdOdbierajacego = idOdbierajacego;
                 request.Status = 1;
@@ -108,9 +121,9 @@ namespace MotoFanpage.Controllers.Fanpage
                 db.BFriendReq.Add(request);
                 db.SaveChanges();
                 return RedirectToAction("DetailsOther","Profil",new {id=idOdbierajacego });
-            }
+          
 
-            return View();
+           
         }
 
         // GET: FriendReq/Edit/5

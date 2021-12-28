@@ -12,6 +12,6 @@ namespace MotoFanpage.Models.Ogólne
         public string Imie { get; set; }
         public string Nazwisko { get; set; }
 
-        public virtual Profil Profil { get; set; }
+        
     }
 }
