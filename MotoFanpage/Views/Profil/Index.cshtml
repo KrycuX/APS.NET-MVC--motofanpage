@@ -11,8 +11,8 @@
     @using (Html.BeginForm("Index", "Profil", FormMethod.Get))
     {
 <div class="row" style="margin:10px;text-align:center">
- 
-    <div class="col-md-4"><p>@Html.TextBox("SearchString", ViewBag.CurrentFilter as string)</p></div>
+    <div class="col-md-4" style="text-align:right"><label>Podaj imie i/lub nazwisko</label></div>
+    <div class="col-md-4">@Html.TextBox("SearchString", ViewBag.CurrentFilter as string)</div>
    
 
 
