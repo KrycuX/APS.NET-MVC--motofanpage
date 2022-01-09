@@ -27,7 +27,10 @@ namespace MotoFanpage.Controllers.Ogólne
             return View(post);
         }
 
-        
+        public ViewResult Index()
+        {
+            throw new NotImplementedException();
+        }
 
         public ActionResult DajLike(int? id)
         {
