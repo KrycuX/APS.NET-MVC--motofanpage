@@ -71,7 +71,7 @@ namespace MotoFanpage.Controllers.Ogólne
         {
 
             Profil profil = db.BProfil.FirstOrDefault(p=>p.ID==id);
-            Profil profil2 = db.BProfil.FirstOrDefault(p=>p.Email==User.Identity.Name);
+           Profil profil2 = db.BProfil.FirstOrDefault(p=>p.Email==User.Identity.Name);
 
           
             List<Profil> list2 = db.BProfil.ToList();

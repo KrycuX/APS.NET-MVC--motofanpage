@@ -29,7 +29,7 @@ namespace MotoFanpage.Controllers.Ogólne
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pojazd pojazd = db.BPojazd.Find(id);
+            Pojazd pojazd = db.BPojazd.FirstOrDefault(p=>p.ID==id);
             if (pojazd == null)
             {
                 return HttpNotFound();

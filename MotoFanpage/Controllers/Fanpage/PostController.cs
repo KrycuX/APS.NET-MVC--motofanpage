@@ -86,7 +86,7 @@ namespace MotoFanpage.Controllers.Fanpage
             return RedirectToAction("Index", "Home");
         }
 
-        protected string GetIp()
+        public string GetIp()
         {
             HttpContext context = System.Web.HttpContext.Current;
             string ipAddress = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];

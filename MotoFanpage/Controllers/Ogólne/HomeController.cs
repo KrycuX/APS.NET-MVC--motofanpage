@@ -14,11 +14,11 @@ namespace MotoFanpage.Controllers.Ogólne
         FanpageContext db = new FanpageContext();
         public ActionResult Index(int? error)
         {
-            Profil profile = db.BProfil.FirstOrDefault(p => p.Email == User.Identity.Name);
+         Profil profile = db.BProfil.FirstOrDefault(p => p.Email == User.Identity.Name);
             List<Post> post = db.BPost.OrderByDescending(p=>p.Date).ToList();
          
           
-                ViewBag.Profil = profile;
+              ViewBag.Profil = profile;
             if(error==1)
             { 
                  ViewBag.Error = "Nie można dodać pustego komentarza!";
